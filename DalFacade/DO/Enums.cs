@@ -1,6 +1,6 @@
 ﻿namespace DO;
 
-internal class Enums
+public record Task
 {
 
 }
