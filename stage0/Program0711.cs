@@ -7,14 +7,14 @@ namespace Targil0
         private static void Main(string[] arg)
         {
 
-            welcome0711();
+            Welcome0711();
             Welcome8917();
         }
 
-        private static void welcome0711()
+        private static void Welcome0711()
         {
             Console.WriteLine("Enter your name: ");
-            string des = Console.ReadLine();
+            string? des = Console.ReadLine();
             Console.WriteLine(@"{0}, welcome to my first console appliction", des);
         }
 
