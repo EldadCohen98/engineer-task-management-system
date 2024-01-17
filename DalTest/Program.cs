@@ -102,7 +102,7 @@ namespace DalTest
                         DO.Task task = new(0, missionObjective, DurationOfWork, "", taskDescription, engineerInCharge, 
                             difficultyLevelTask, engineerLevels, dateCreatTask, startDateWork, deadLine, startDateTask,
                             actualTaskEndDate, false, alias);
-                        Console.WriteLine("The new egineer's ID is: " + s_dalTask.Create(task));
+                        Console.WriteLine("The new task's ID is: " + s_dalTask.Create(task));
                     }
 
                     if (item is Dependence)
@@ -112,11 +112,11 @@ namespace DalTest
                         Console.WriteLine("Insert a number of previous task dependent");
                         int previousTaskDependent = int.Parse(Console.ReadLine());
                         Dependence task = new(0,int.Parse(Console.ReadLine()), previousTaskDependent);
-                        Console.WriteLine("The new task's ID is: " + s_dependence.Create(task));
+                        Console.WriteLine("The new dependence's ID is: " + s_dependence.Create(task));
                     }
                     
                     Console.WriteLine("Select an action to continue.\r\nPress 0 for the methods menu on the same entity");
-                    int? selction = int.Parse("The new dependence is: " + Console.ReadLine());
+                    int? selction = int.Parse(Console.ReadLine());
                     
                     if (selction == 0)
                     {
