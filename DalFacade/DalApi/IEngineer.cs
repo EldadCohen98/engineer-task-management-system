@@ -2,11 +2,7 @@
 
 using DO;
 
-public interface IEngineer
+public interface IEngineer : ICrud<Engineer>
 {
-    int Create(Engineer item);
-    Engineer? Read(int id);
-    List<Engineer> ReadAll();
-    void Update(Engineer item);
-    void Delete(int id);
+
 }

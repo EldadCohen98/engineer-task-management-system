@@ -4,19 +4,19 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer engineer)
     {
-        //Creating a new object of type 'engineer' and adding it to the database
-        for (int i = 0; i < DataSource.Engineers.Count; i++)
+        //Checking if the object is in the list.
+        //If so an exception is thrown
+        if (Read(engineer.EngineerId) is not null)
         {
-            if (engineer.EngineerId == DataSource.Engineers[i].EngineerId)
-            {
-                throw new Exception("An object of type 'engineer' with such an ID already exists");
-            }
+            throw new DalAlreadyExistsException($"Engineer with ID = {engineer.EngineerId} already exists");
         }
         DataSource.Engineers.Add(engineer);
         return engineer.EngineerId;
@@ -25,28 +25,40 @@ public class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     {
-        //Reading details of a certain engineer by returning his details
-        for (int i = 0; i < DataSource.Engineers.Count; i++)
-        {
-            if (id == DataSource.Engineers[i].EngineerId)
-            {
-                return DataSource.Engineers[i];
-            }
-        }
-        return null;
+        //Using a Linq query to select the required engineer
+        var reEngineer = from engineer in DataSource.Engineers
+                     where (engineer.EngineerId) == id
+                     select engineer;
+        return reEngineer.FirstOrDefault();
     }
 
-    public List<Engineer> ReadAll()
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+
     {
-        //Copying the entire engineer database to a new list and returning it
-        List<Engineer> newList = new(DataSource.Engineers);
-        return newList;
+        if (filter == null)
+        {
+            //If a certain condition was not met, then we will simply return the entire list as it is
+            return DataSource.Engineers.Select(item => item).ToList();
+        }
+        else
+        {
+            //If a condition is accepted, we will select all the elements that receive "true" in this condition
+            return DataSource.Engineers.Where(item => filter(item)).ToList();
+        }
     }
 
     public void Update(Engineer engineer)
     {
         //Update engineer details
         //Delete his old details and re-add him to the database with updated details
+
+        //Checking if there is an object that should be updated
+        //If it does not exist in the list, a 'null' value will be returned, and throw an exception.
+        if (Read(engineer.EngineerId) is null)
+        {
+            throw new DalDoesNotExistException($"Engineer with number = {engineer.EngineerId} does not exist");
+        }
+
         int i = 0;
         for (; i < DataSource.Engineers.Count; i++)
         {
@@ -57,10 +69,6 @@ public class EngineerImplementation : IEngineer
                 return;
             }
         }
-        if (i == DataSource.Engineers.Count)
-        {
-            throw new Exception("An object of type 'Engineer' with such an ID does not exist");
-        }
     }
 
 
@@ -68,6 +76,19 @@ public class EngineerImplementation : IEngineer
     //Deleting a task by its number.
     //everything can be deleted.
     {
+
+        //Checking if there is an object that should be updated
+        //If it does not exist in the list, a 'null' value will be returned, and throw an exception.
+        if (Read(id) is null)
+        {
+            throw new DalDoesNotExistException($"Engineer with number = {id} does not exist");
+        }
+
+        if ((Read(id) is not null) && Read(id).erasable == true)
+        {
+            throw new DalDeletionImpossibleException($"Engineer with ID number = {id} cannot be deleted");
+        }
+
         int i = 0;
         for (; i < DataSource.Engineers.Count; i++)
         {
@@ -77,10 +98,18 @@ public class EngineerImplementation : IEngineer
                 break;
             }
         }
-        if (i == DataSource.Engineers.Count)
-        {
-            throw new Exception("An object with such an ID does not exist");
-        }
+    }
+
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        //Check if the function of filtering the objects in the list
+        //If the condition is null there is nothing to do the filtering and the method will return the first element in the list.
+        //But, if the condition is not null then we will activate the filter on each object to check if it is met.
+        //if it is met then we will return the first object that received the value 'true'
+        var reEngineer = from engineer in DataSource.Engineers
+                     where filter == null || filter(engineer)
+                     select engineer;
+        return reEngineer.FirstOrDefault();
     }
 }
     

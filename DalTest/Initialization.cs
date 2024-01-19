@@ -7,17 +7,13 @@ using System.Collections.Generic;
 
 public static class Initialization
 {
-    private static ITask? s_dalTask;
-    private static IEngineer? s_dalEngineer;
-    private static IDependence? s_dalDependence;
+    private static IDal? s_dal;
 
     public static Random SRandom { get; } = new();
 
-    public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependence? dalDependence)
+    public static void Do(IDal dal)
     {
-        s_dalTask = dalTask?? throw new NullReferenceException("DAL can not be null");
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null");
-        s_dalDependence = dalDependence ?? throw new NullReferenceException("DAL can not be null");
+        s_dal = dal?? throw new NullReferenceException("DAL can not be null");
 
         CreateEngineer();
         CreateTask();
@@ -45,7 +41,7 @@ public static class Initialization
         levelTasks[1] = DifficultyLevelTask.Novice;
         levelTasks[2] = DifficultyLevelTask.Expert;
 
-        List<Engineer> engineers =s_dalEngineer!.ReadAll();
+        List<Engineer> engineers = (List<Engineer>)s_dal!.Engineer.ReadAll();
         int totalEngineers = engineers!.Count;
 
         for (int i = 0; i < 50; i++)
@@ -56,7 +52,7 @@ public static class Initialization
             idEngineer = engineers[SRandom.Next(0, totalEngineers)]!.EngineerId;
             difficultyLevelTask = levelTasks[SRandom.Next(0, 3)];
             Task task = new(0,"",0,"", descriptionTsak, idEngineer, difficultyLevelTask, trainingEngineerLevel, DateTime.Today,new DateTime(2025, 01, 01), new DateTime(2028, 08, 01), null,null,false, nicknameTask);
-            s_dalTask!.Create(task);
+            s_dal!.Task.Create(task);
         } 
     }
     private static void CreateEngineer() 
@@ -98,26 +94,26 @@ public static class Initialization
                 do
                 {
                     _id = SRandom.Next(minId, maxId);
-                } while (s_dalEngineer?.Read(_id) != null);
+                } while (s_dal!.Engineer.Read(_id) != null);
                 nameEngineer = stringNameAndEmail.Item1;
                 emailEnginrr = stringNameAndEmail.Item2;
                 trainingEngineerLevel = engineerLevels[SRandom.Next(0,4)];
                 float perHour = SRandom.Next(5000, 20000);
                 Engineer newEngineer = new(_id, nameEngineer, emailEnginrr, trainingEngineerLevel, perHour);
-                s_dalEngineer?.Create(newEngineer);
+                s_dal!.Engineer.Create(newEngineer);
             }
         }
     }
 
     private static void CreateDependence() 
     {
-        List<Task> dependence = s_dalTask!.ReadAll();
+        List<Task> dependence = (List<Task>)s_dal!.Task.ReadAll();
 
         for (int i = 0; i < 50; i++)
         {
             int idTask1 = dependence[SRandom.Next(0, dependence.Count)]!.NumOfTask;
             Dependence newDependence = new(0, idTask1, dependence[SRandom.Next(0, dependence.Count)]!.NumOfTask);
-            s_dalDependence!.Create(newDependence);
+            s_dal!.Dependence.Create(newDependence);
 
         }
     }

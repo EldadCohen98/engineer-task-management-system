@@ -15,7 +15,8 @@ public record Engineer
     string? EngineerName = null,
     string? EngineerEmail = null,
     EngineerLevels? LeverOfEngineer = null,
-    float? SalaryPerHour = null
+    float? SalaryPerHour = null,
+    bool? erasable = null
 )
 {
     public Engineer() : this(0) { }

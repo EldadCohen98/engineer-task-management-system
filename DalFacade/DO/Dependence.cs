@@ -11,7 +11,8 @@ namespace DO
     (
        int DependencyIdNumber,
        int TaskNumberDepends,
-       int PreviousTaskDepends
+       int PreviousTaskDepends,
+        bool? erasable = null
     )
     {
         public Dependence():this(0,0,0) { } 

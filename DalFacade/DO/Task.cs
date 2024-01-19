@@ -41,7 +41,8 @@ public record Task
     DateTime? StartWorkDate = null,
     DateTime? EndOfActualWork = null,
     bool Milestone = false,               
-    string? Nickname = null                  
+    string? Nickname = null, 
+    bool? erasable = null
 )
 {
     public Task() : this(0, "", 0, "", "") { }

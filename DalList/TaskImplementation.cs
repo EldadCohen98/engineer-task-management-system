@@ -3,12 +3,21 @@
 using DalApi;                    
 using DO;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
-    public int Create(Task task)
+    public int Create(DO.Task task)
     {
-        Task newTask = task with {NumOfTask = DataSource.Config.NumOfNextTask };
+        //Checking if the object is in the list.
+        //If so an exception is thrown
+        if (Read(task.NumOfTask) is not null)
+        {
+            throw new DalAlreadyExistsException($"Task with number = {task.NumOfTask} already exists");
+        }
+        DO.Task newTask = task with {NumOfTask = DataSource.Config.NumOfNextTask };
         //Creating a new instance is exactly the same only the task number
         //has been updated to the runner number
 
@@ -16,29 +25,38 @@ public class TaskImplementation : ITask
         return newTask.NumOfTask; //Returning the running number value
     }
 
-    public Task? Read(int id)
+    public DO.Task? Read(int id)
     {
-        for (int i = 0; i < DataSource.Tasks.Count; i++)
+        //Using a Linq query to select the required task
+        var reTask = from task in DataSource.Tasks
+                     where (task.NumOfTask) == id
+                     select task;
+        return reTask.FirstOrDefault();
+    }
+
+    public IEnumerable<DO.Task> ReadAll(Func<DO.Task, bool>? filter = null)
+    {
+        if (filter == null)
         {
-            if (DataSource.Tasks[i].NumOfTask ==id)
-            {
-                return DataSource.Tasks[i];
-            }
-            //Checking if there is an element in the list
-            //that contains a task number like the received number
+            //If a certain condition was not met, then we will simply return the entire list as it is
+            return DataSource.Tasks.Select(item => item).ToList();
         }
-        return null;
+        else
+        {
+            //If a condition is accepted, we will select all the elements that receive "true" in this condition
+            return DataSource.Tasks.Where(item => filter(item)).ToList();
+        }
     }
 
-    public List<Task> ReadAll()
+    public void Update(DO.Task task)
     {
-        List<Task> newList = new(DataSource.Tasks);
-        return newList;
-        //Making a copy of the original list into a new list and returning the new list
-    }
+        //Checking if there is an object that should be updated
+        //If it does not exist in the list, a 'null' value will be returned, and throw an exception.
+        if (Read(task.NumOfTask) is null)
+        {
+            throw new DalDoesNotExistException($"Task with number = {task.NumOfTask} does not exist");
+        }
 
-    public void Update(Task task)
-    {
         int i = 0;
         for (; i < DataSource.Tasks.Count; i++)
         {
@@ -63,6 +81,19 @@ public class TaskImplementation : ITask
     //Deleting a task by its number.
     //In the missions, everything can be deleted.
     {
+
+        //Checking if there is an object that should be updated
+        //If it does not exist in the list, a 'null' value will be returned, and throw an exception.
+        if (Read(id) is null)
+        {
+            throw new DalDoesNotExistException($"Task with number = {id} does not exist");
+        }
+
+        if ((Read(id) is not null) && Read(id).erasable == true)
+        {
+            throw new DalDeletionImpossibleException($"Task with number = {id} cannot be deleted");
+        }
+
         int i = 0;
         for (; i < DataSource.Tasks.Count; i++)
         {
@@ -75,5 +106,17 @@ public class TaskImplementation : ITask
         {
             throw new Exception("An object with such an ID does not exist");
         }
+    }
+
+    public DO.Task? Read(Func<DO.Task, bool> filter)
+    {
+        //Check if the function of filtering the objects in the list
+        //If the condition is null there is nothing to do the filtering and the method will return the first element in the list.
+        //But, if the condition is not null then we will activate the filter on each object to check if it is met.
+        //if it is met then we will return the first object that received the value 'true'
+        var reTask = from task in DataSource.Tasks
+                     where filter==null || filter(task)
+                     select task;
+        return reTask.FirstOrDefault();
     }
 }

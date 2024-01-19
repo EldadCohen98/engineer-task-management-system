@@ -2,11 +2,7 @@
 
 using DO;
 
-public interface IDependence
+public interface IDependence:ICrud<Dependence>
 {
-    int Create(Dependence item);
-    Dependence? Read(int id);
-    List<Dependence> ReadAll();
-    void Update(Dependence item);
-    void Delete(int id);
+ 
 }
