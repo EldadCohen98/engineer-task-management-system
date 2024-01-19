@@ -20,8 +20,8 @@ internal class DependenciesImplementation : IDependence
         }
 
         Dependence newDependenceTask = dependence with { DependencyIdNumber = DataSource.Config.NumOfNextTask };
-        DataSource.Dependences.Add(dependence);
-        return dependence.DependencyIdNumber;
+        DataSource.Dependences.Add(newDependenceTask);
+        return newDependenceTask.DependencyIdNumber;
     }
 
     public Dependence? Read(int id)
