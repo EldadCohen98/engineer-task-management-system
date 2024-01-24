@@ -1,23 +1,15 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using System.Threading.Tasks;
-using System.Transactions;
 using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace DalTest
 {
     public class Program
     {
-        private static readonly IDal s_dal = new DalList();
+        //static readonly IDal s_dal = new DalList();
+        static readonly IDal s_dal = new DalXml();
 
 
         // A private method for all entity CRUD methods
@@ -241,7 +233,10 @@ namespace DalTest
             {
                 Console.WriteLine("Enter an engineer ID number");
                 int ID = int.Parse(Console.ReadLine());
-                Engineer engineer = s_dal.Engineer.Read(ID);
+                Engineer? engineer = s_dal.Engineer.Read(ID);
+                if (engineer == null)
+                    throw new DalDoesNotExistException("engineer not found");
+
                 Console.WriteLine("The wanted engineer is: " + engineer);
                 Console.WriteLine("What do you want to change?");
                 Console.WriteLine("1. Updating the identity number.\r\n2. Update engineer name.\r\n3. Update engineer email.\r\n4. Updating the level of the engineer's training.\r\n0. Return to the entity update menu");
@@ -466,13 +461,13 @@ namespace DalTest
                 throw new ArgumentNullException(nameof(args));
             }
 
+        Start:
             try
             {
                 int EntitySelection;
-                Initialization.Do(s_dal);
                 
                 MainMenu:
-                Console.WriteLine("Enter a number to select an entity\n1.'Engineer' entity\n2. 'Task' entity\n3. 'Dependence' entity\n0. to exit");
+                Console.WriteLine("Enter a number to select an entity\n1.'Engineer' entity\n2. 'Task' entity\n3. 'Dependence' entity\n4.Initialization data\n0. to exit");
 
                 posting:
                 string? stringChooseNumber = Console.ReadLine();
@@ -509,6 +504,13 @@ namespace DalTest
                         Crud(dependence);
                         break;
 
+                    //Initialization
+                    case 4:
+                        Console.Write("Would you like to create Initial data? (Y/N)");
+                        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                        if (ans == "Y")
+                            Initialization.Do(s_dal);
+                        break;
                     // defolte
                     default:
                         Console.WriteLine("You entered an incorrect value");
@@ -522,17 +524,24 @@ namespace DalTest
             catch (DalDoesNotExistException ex) 
             {
                 Console.WriteLine(ex);
+                Console.WriteLine("Start again");
             }
 
             catch (DalAlreadyExistsException ex)
             {
                 Console.WriteLine(ex);
+                Console.WriteLine("Start again");
             }
 
             catch (DalDeletionImpossibleException ex)
             {
                 Console.WriteLine(ex);
+                Console.WriteLine("Start again");
             }
+            finally
+            {
+            }
+            goto Start;
         }
     }
 }

@@ -73,7 +73,7 @@ internal class EngineerImplementation : IEngineer
 
 
     public void Delete(int id)
-    //Deleting a task by its number.
+    //Deleting a engineer by his number.
     //everything can be deleted.
     {
 

@@ -43,7 +43,8 @@ public record Task
     bool Milestone = false,               
     string? Nickname = null, 
     bool? erasable = null
+
 )
 {
-    public Task() : this(0, "", 0, "", "") { }
+    public Task() : this(0, "", 0, "", "") { }    
 } 
