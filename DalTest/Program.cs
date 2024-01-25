@@ -1,6 +1,8 @@
 ﻿using Dal;
 using DalApi;
 using DO;
+using System.Runtime.Intrinsics.Arm;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
@@ -506,16 +508,23 @@ namespace DalTest
 
                     //Initialization
                     case 4:
-                        Console.Write("Would you like to create Initial data? (Y/N)");
+                        Console.WriteLine("Would you like to create Initial data? (Y/N)");
                         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
                         if (ans == "Y")
-                            Initialization.Do(s_dal);
+                        {
+                            
+                            try {Initialization.Do(s_dal); }
+                            catch (Exception ex)
+                            { Console.WriteLine(ex); }
+                        }
+                        
                         break;
                     // defolte
                     default:
                         Console.WriteLine("You entered an incorrect value");
                         break;
                 }
+
                 if (EntitySelection == 0) 
                     return;
 

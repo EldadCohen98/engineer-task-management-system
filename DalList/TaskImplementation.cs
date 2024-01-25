@@ -119,4 +119,9 @@ internal class TaskImplementation : ITask
                      select task;
         return reTask.FirstOrDefault();
     }
+
+    public void Clear()
+    {
+        DataSource.Tasks.Clear();
+    }
 }

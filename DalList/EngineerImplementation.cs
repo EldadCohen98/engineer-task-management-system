@@ -111,5 +111,9 @@ internal class EngineerImplementation : IEngineer
                      select engineer;
         return reEngineer.FirstOrDefault();
     }
+    public void Clear()
+    {
+        DataSource.Engineers.Clear();
+    }
 }
     

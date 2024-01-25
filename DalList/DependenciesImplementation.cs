@@ -110,4 +110,9 @@ internal class DependenciesImplementation : IDependence
                      select dependence;
         return reDependence.FirstOrDefault();
     }
+
+    public void Clear()
+    {
+        DataSource.Dependences.Clear();
+    }
 }

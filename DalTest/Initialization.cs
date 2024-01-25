@@ -13,11 +13,19 @@ public static class Initialization
 
     public static void Do(IDal dal)
     {
-        s_dal = dal?? throw new NullReferenceException("DAL can not be null");
+        s_dal = dal ?? throw new NullReferenceException("DAL can not be null");
 
+        clearLists();
         CreateEngineer();
         CreateTask();
         CreateDependence();
+    }
+
+    private static void clearLists()
+    {
+        s_dal.Engineer.Clear();
+        s_dal.Task.Clear();
+        s_dal.Dependence.Clear();
     }
 
     private static void CreateTask()

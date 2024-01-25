@@ -75,13 +75,11 @@ internal class TaskImplementation:ITask
         if (filter == null)
         {
             //If a certain condition was not met, then we will simply return the entire list as it is
-            XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
             return tasks.Select(item=>item).ToList();
         }
         else
         {
             //If a condition is accepted, we will select all the elements that receive "true" in this condition
-            XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
             return tasks.Where(item=>filter(item)).ToList();
         }
     }
@@ -100,5 +98,12 @@ internal class TaskImplementation:ITask
         tasks.Add(task);
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
 
+    }
+
+    public void Clear()
+    {
+        List<DO.Task> tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task_xml);
+        tasks.Clear();
+        XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
     }
 }

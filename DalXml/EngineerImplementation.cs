@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class EngineerImplementation:IEngineer
@@ -87,12 +88,10 @@ internal class EngineerImplementation:IEngineer
 
         if (filter == null)
         {
-            XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
             return engineers.Select(item=>item).ToList();
         }
         else
         {
-            XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
             return engineers.Where(item=>filter(item)).ToList();
         }
     }
@@ -112,6 +111,13 @@ internal class EngineerImplementation:IEngineer
         engineers.Remove(Read(engineer.EngineerId));
         engineers.Add(engineer);
 
+        XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
+    }
+
+    public void Clear()
+    {
+        List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer_xml);
+        engineers.Clear();       
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
     }
 }

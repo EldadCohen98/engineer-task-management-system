@@ -18,13 +18,8 @@ internal class DependenceImplementation:IDependence
 
     public int Create(Dependence newDependence)
     {
-        //Checking if the directory exists
-        //If it doesn't exist then create it
-        if (!Directory.Exists(s_dependence_xml))
-            Directory.CreateDirectory(s_dependence_xml);
-
         //Create root for XML file
-        XElement newRootXElement = new XElement("ArrayOfDependence");
+        XElement newRootXElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
 
         //Inserting values from an received entity into an XElement
         XElement newDependenceElement = new XElement("Dependence", new XElement("IdNumber", Config.nextNumberOfDependenceTask),
@@ -32,11 +27,10 @@ internal class DependenceImplementation:IDependence
                                                     new XElement("PreviousTaskDepends", newDependence.PreviousTaskDepends),
                                                     new XElement("Erasable", newDependence.erasable));
         //Adding the element to the XML file
-        newDependenceElement.Add(newDependence);
+        newRootXElement.Add(newDependenceElement);
 
         //Saving XElement to XML file
-        newDependenceElement.Save(s_dependence_xml);
-        
+        XMLTools.SaveListToXMLElement(newRootXElement, s_dependence_xml);
         return newDependence.TaskNumberDepends;
     }
 
@@ -48,7 +42,7 @@ internal class DependenceImplementation:IDependence
             throw new DalDeletionImpossibleException($"Task depends with number = {id} cannot be deleted");
 
         XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
-        var deleteElement = reDependenceElement.Elements().FirstOrDefault(idDependence => (int?)idDependence.Element("IdNumber") == id);
+        var deleteElement = reDependenceElement.Elements().FirstOrDefault(idDependence => Convert.ToInt32(idDependence.Element("IdNumber").Value)==id);
 
         deleteElement!.Remove();
         XMLTools.SaveListToXMLElement(reDependenceElement, s_dependence_xml);
@@ -143,6 +137,12 @@ internal class DependenceImplementation:IDependence
 
         deleteElement!.Remove();
         reDependenceElement!.Add(newDependence);
+        XMLTools.SaveListToXMLElement(reDependenceElement, s_dependence_xml);
+    }
+    public void Clear()
+    {
+        XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
+        reDependenceElement.RemoveAll();
         XMLTools.SaveListToXMLElement(reDependenceElement, s_dependence_xml);
     }
 }

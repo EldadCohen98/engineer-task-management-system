@@ -1,4 +1,303 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDependence>
-	
+  <Dependence>
+    <IdNumber>1061</IdNumber>
+    <TaskNumberDepends>520</TaskNumberDepends>
+    <PreviousTaskDepends>488</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1062</IdNumber>
+    <TaskNumberDepends>516</TaskNumberDepends>
+    <PreviousTaskDepends>495</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1063</IdNumber>
+    <TaskNumberDepends>513</TaskNumberDepends>
+    <PreviousTaskDepends>507</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1064</IdNumber>
+    <TaskNumberDepends>508</TaskNumberDepends>
+    <PreviousTaskDepends>496</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1065</IdNumber>
+    <TaskNumberDepends>508</TaskNumberDepends>
+    <PreviousTaskDepends>498</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1066</IdNumber>
+    <TaskNumberDepends>487</TaskNumberDepends>
+    <PreviousTaskDepends>517</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1067</IdNumber>
+    <TaskNumberDepends>505</TaskNumberDepends>
+    <PreviousTaskDepends>511</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1068</IdNumber>
+    <TaskNumberDepends>511</TaskNumberDepends>
+    <PreviousTaskDepends>515</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1069</IdNumber>
+    <TaskNumberDepends>492</TaskNumberDepends>
+    <PreviousTaskDepends>528</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1070</IdNumber>
+    <TaskNumberDepends>508</TaskNumberDepends>
+    <PreviousTaskDepends>496</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1071</IdNumber>
+    <TaskNumberDepends>521</TaskNumberDepends>
+    <PreviousTaskDepends>505</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1072</IdNumber>
+    <TaskNumberDepends>528</TaskNumberDepends>
+    <PreviousTaskDepends>493</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1073</IdNumber>
+    <TaskNumberDepends>521</TaskNumberDepends>
+    <PreviousTaskDepends>523</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1074</IdNumber>
+    <TaskNumberDepends>505</TaskNumberDepends>
+    <PreviousTaskDepends>523</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1075</IdNumber>
+    <TaskNumberDepends>523</TaskNumberDepends>
+    <PreviousTaskDepends>506</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1076</IdNumber>
+    <TaskNumberDepends>496</TaskNumberDepends>
+    <PreviousTaskDepends>489</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1077</IdNumber>
+    <TaskNumberDepends>526</TaskNumberDepends>
+    <PreviousTaskDepends>496</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1078</IdNumber>
+    <TaskNumberDepends>510</TaskNumberDepends>
+    <PreviousTaskDepends>508</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1079</IdNumber>
+    <TaskNumberDepends>505</TaskNumberDepends>
+    <PreviousTaskDepends>487</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1080</IdNumber>
+    <TaskNumberDepends>503</TaskNumberDepends>
+    <PreviousTaskDepends>513</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1081</IdNumber>
+    <TaskNumberDepends>487</TaskNumberDepends>
+    <PreviousTaskDepends>529</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1082</IdNumber>
+    <TaskNumberDepends>527</TaskNumberDepends>
+    <PreviousTaskDepends>488</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1083</IdNumber>
+    <TaskNumberDepends>536</TaskNumberDepends>
+    <PreviousTaskDepends>519</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1084</IdNumber>
+    <TaskNumberDepends>488</TaskNumberDepends>
+    <PreviousTaskDepends>518</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1085</IdNumber>
+    <TaskNumberDepends>517</TaskNumberDepends>
+    <PreviousTaskDepends>507</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1086</IdNumber>
+    <TaskNumberDepends>520</TaskNumberDepends>
+    <PreviousTaskDepends>527</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1087</IdNumber>
+    <TaskNumberDepends>498</TaskNumberDepends>
+    <PreviousTaskDepends>487</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1088</IdNumber>
+    <TaskNumberDepends>532</TaskNumberDepends>
+    <PreviousTaskDepends>499</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1089</IdNumber>
+    <TaskNumberDepends>499</TaskNumberDepends>
+    <PreviousTaskDepends>530</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1090</IdNumber>
+    <TaskNumberDepends>515</TaskNumberDepends>
+    <PreviousTaskDepends>496</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1091</IdNumber>
+    <TaskNumberDepends>504</TaskNumberDepends>
+    <PreviousTaskDepends>530</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1092</IdNumber>
+    <TaskNumberDepends>496</TaskNumberDepends>
+    <PreviousTaskDepends>517</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1093</IdNumber>
+    <TaskNumberDepends>532</TaskNumberDepends>
+    <PreviousTaskDepends>522</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1094</IdNumber>
+    <TaskNumberDepends>523</TaskNumberDepends>
+    <PreviousTaskDepends>515</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1095</IdNumber>
+    <TaskNumberDepends>492</TaskNumberDepends>
+    <PreviousTaskDepends>531</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1096</IdNumber>
+    <TaskNumberDepends>520</TaskNumberDepends>
+    <PreviousTaskDepends>492</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1097</IdNumber>
+    <TaskNumberDepends>527</TaskNumberDepends>
+    <PreviousTaskDepends>489</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1098</IdNumber>
+    <TaskNumberDepends>530</TaskNumberDepends>
+    <PreviousTaskDepends>503</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1099</IdNumber>
+    <TaskNumberDepends>531</TaskNumberDepends>
+    <PreviousTaskDepends>512</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1100</IdNumber>
+    <TaskNumberDepends>519</TaskNumberDepends>
+    <PreviousTaskDepends>520</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1101</IdNumber>
+    <TaskNumberDepends>500</TaskNumberDepends>
+    <PreviousTaskDepends>495</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1102</IdNumber>
+    <TaskNumberDepends>518</TaskNumberDepends>
+    <PreviousTaskDepends>530</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1103</IdNumber>
+    <TaskNumberDepends>496</TaskNumberDepends>
+    <PreviousTaskDepends>489</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1104</IdNumber>
+    <TaskNumberDepends>503</TaskNumberDepends>
+    <PreviousTaskDepends>487</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1105</IdNumber>
+    <TaskNumberDepends>524</TaskNumberDepends>
+    <PreviousTaskDepends>530</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1106</IdNumber>
+    <TaskNumberDepends>513</TaskNumberDepends>
+    <PreviousTaskDepends>513</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1107</IdNumber>
+    <TaskNumberDepends>490</TaskNumberDepends>
+    <PreviousTaskDepends>511</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1108</IdNumber>
+    <TaskNumberDepends>505</TaskNumberDepends>
+    <PreviousTaskDepends>526</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1109</IdNumber>
+    <TaskNumberDepends>533</TaskNumberDepends>
+    <PreviousTaskDepends>510</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
+  <Dependence>
+    <IdNumber>1110</IdNumber>
+    <TaskNumberDepends>491</TaskNumberDepends>
+    <PreviousTaskDepends>495</PreviousTaskDepends>
+    <Erasable />
+  </Dependence>
 </ArrayOfDependence>
