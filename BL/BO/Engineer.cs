@@ -5,7 +5,6 @@ public class Engineer
    public string? Name { get; set; }
    public string? Email { get; set; }
    public BO.EngineerLevels Level { get; set; }
-   public Double cost { get; set; }    
-
+   public Double cost { get; set; }
 
 }
