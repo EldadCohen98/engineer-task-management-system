@@ -3,11 +3,16 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
+
+
     public IEngineer Engineer => new EngineerImplementation();
 
     public ITask Task => new TaskImplementation();
 
-    public IDependence Dependence => new DependenciesImplementation(); 
+    public IDependence Dependence => new DependenciesImplementation();
+
 }

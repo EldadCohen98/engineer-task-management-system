@@ -12,7 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 
-internal class DependenceImplementation:IDependence
+internal class DependenceImplementation: IDependence
 {
     readonly string s_dependence_xml = "dependences";
 
