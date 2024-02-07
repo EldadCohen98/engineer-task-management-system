@@ -1,11 +1,10 @@
-﻿using DO;
+﻿
 
 namespace DalApi;
 
 public interface IDal
 {
-    IEngineer Engineer { get; } 
+    IEngineer Engineer { get; }
     ITask Task { get; }
-    IDependence Dependence { get; }
+    IDependence Dependency { get; }
 }
-    

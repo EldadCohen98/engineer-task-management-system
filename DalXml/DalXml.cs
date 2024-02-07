@@ -1,11 +1,16 @@
 ﻿using DalApi;
 namespace Dal;
 
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
-    public IEngineer Engineer =>  new EngineerImplementation();
+    public IEngineer Engineer => new EngineerImplementation();
 
-    public ITask Task =>  new TaskImplementation();
+    public ITask Task => new TaskImplementation();
 
-    public IDependence Dependence =>  new DependenceImplementation();
+    public IDependence Dependency => new DependenceImplementation();
+
+    public static IDal Instance { get; } = new DalXml();
+
+    private DalXml() { }
+
 }

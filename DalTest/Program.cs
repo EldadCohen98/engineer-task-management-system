@@ -1,26 +1,22 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
-using System.Runtime.Intrinsics.Arm;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 
 namespace DalTest
 {
     public class Program
     {
-        //static readonly IDal s_dal = new DalList();
-        static readonly IDal s_dal = new DalXml();
-
-
-        // A private method for all entity CRUD methods
+        //static readonly IDal s_dal = new DalList(); //stage 2
+        //static readonly IDal s_dal = new DalXml(); //stage 3
+        static readonly IDal s_dal = Factory.Get; //stage 4
+                                                  // static readonly IDal s_dal = new DalXml();
+                                                  // A private method for all entity CRUD methods
         private static void Crud<T>(T item) where T : new()
         {
             //Initialization.Do(s_dalTask, s_engineer, s_dependence);
 
             Console.WriteLine("Enter a number to select a method,\r\n0. Exit to main menu.\r\n1. Adding an object.\r\n2. Object display.\r\n3. List view.\r\n4. Update an existing object.\r\n5. Object deletion.");
-            ChooseMethod:
+        ChooseMethod:
             string? stringChooseMethod = Console.ReadLine();
             int chooseMethod = int.Parse(stringChooseMethod);
             if (!(int.TryParse(stringChooseMethod, out chooseMethod)))
@@ -51,7 +47,7 @@ namespace DalTest
                         Console.WriteLine("Enter 'true' or 'false' if the engineer can be deleted or not");
                         bool deleteTask = bool.Parse(Console.ReadLine());
 
-                        Engineer engineer = new(idEngineer,nameOfEngineer, emailOfDependence, engineerLevels,null, deleteTask);
+                        Engineer engineer = new(idEngineer, nameOfEngineer, emailOfDependence, engineerLevels, null, deleteTask);
                         Console.WriteLine("The identity number of the new engineer is:" + s_dal.Engineer.Create(engineer));
                     }
 
@@ -97,13 +93,13 @@ namespace DalTest
                         Console.WriteLine("Enter 'true' or 'false' if the task can be deleted or not");
                         bool deleteTask = bool.Parse(Console.ReadLine());
 
-                        DO.Task task = new(0, missionObjective, DurationOfWork, "", taskDescription, engineerInCharge, 
+                        DO.Task task = new(0, missionObjective, DurationOfWork, "", taskDescription, engineerInCharge,
                             difficultyLevelTask, engineerLevels, dateCreatTask, startDateWork, deadLine, startDateTask,
                             actualTaskEndDate, false, alias, deleteTask);
                         Console.WriteLine("The new task's ID is: " + s_dal.Task.Create(task));
                     }
 
-                    if (item is Dependence)
+                    if (item is Dependency)
                     {
                         Console.WriteLine("Enter a task number dependent");
                         int numberDependent = int.Parse(Console.ReadLine());
@@ -114,13 +110,13 @@ namespace DalTest
                         Console.WriteLine("Enter 'true' or 'false' if the task can be deleted or not");
                         bool deleteTask = bool.Parse(Console.ReadLine());
 
-                        Dependence task = new(0,int.Parse(Console.ReadLine()), previousTaskDependent, deleteTask);
-                        Console.WriteLine("The new dependence's ID is: " + s_dal.Dependence.Create(task));
+                        Dependency task = new(0, int.Parse(Console.ReadLine()), previousTaskDependent, deleteTask);
+                        Console.WriteLine("The new dependence's ID is: " + s_dal.Dependency.Create(task));
                     }
-                    
+
                     Console.WriteLine("Select an action to continue.\r\nPress 0 for the methods menu on the same entity");
                     int? selction = int.Parse(Console.ReadLine());
-                    
+
                     if (selction == 0)
                     {
                         Console.WriteLine("Enter a number to select a method,\r\n0. Exit to main menu.\r\n1. Adding an object.\r\n2. Object display.\r\n3. List view.\r\n4. Update an existing object.\r\n5. Object deletion.");
@@ -152,11 +148,11 @@ namespace DalTest
                             Console.WriteLine(flag);
                     }
 
-                    if (item is Dependence)
+                    if (item is Dependency)
                     {
                         Console.WriteLine("Enter the ID number of the requested pending task");
                         int ID = int.Parse(Console.ReadLine());
-                        Dependence? flag = s_dal.Dependence.Read(ID);
+                        Dependency? flag = s_dal.Dependency.Read(ID);
                         if (flag == null)
                             Console.WriteLine("No wanted pending task found");
                         else
@@ -168,13 +164,13 @@ namespace DalTest
                 case 3:
                     if (item is Engineer)
                     {
-                        List <Engineer> engineerList = new(s_dal.Engineer.ReadAll());
-                        foreach (var engineer in engineerList )
+                        List<Engineer> engineerList = new(s_dal.Engineer.ReadAll());
+                        foreach (var engineer in engineerList)
                         {
-                            Console.Write(engineer+" ");
+                            Console.Write(engineer + " ");
                         }
-                    }   
-                        
+                    }
+
                     if (item is DO.Task)
                     {
                         List<DO.Task> taskList = new(s_dal.Task.ReadAll());
@@ -182,11 +178,11 @@ namespace DalTest
                         {
                             Console.Write(task + " ");
                         }
-                    }   
-                        
-                    if (item is Dependence)
+                    }
+
+                    if (item is Dependency)
                     {
-                        List<Dependence> dependenceList = new(s_dal.Dependence.ReadAll());
+                        List<Dependency> dependenceList = new(s_dal.Dependency.ReadAll());
                         foreach (var dependence in dependenceList)
                         {
                             Console.Write(dependence + " ");
@@ -223,9 +219,9 @@ namespace DalTest
                 s_dal.Task.Delete(id);
             }
 
-            if (item is Dependence)
+            if (item is Dependency)
             {
-                s_dal.Dependence.Delete(id);
+                s_dal.Dependency.Delete(id);
             }
         }
 
@@ -243,7 +239,7 @@ namespace DalTest
                 Console.WriteLine("What do you want to change?");
                 Console.WriteLine("1. Updating the identity number.\r\n2. Update engineer name.\r\n3. Update engineer email.\r\n4. Updating the level of the engineer's training.\r\n0. Return to the entity update menu");
 
-                SelectingUpdateEngineer:
+            SelectingUpdateEngineer:
                 if (!(int.TryParse(Console.ReadLine(), out int selectingUpdate)))
                 {
                     Console.WriteLine("You entered a wrong number!\nEnter again");
@@ -273,7 +269,7 @@ namespace DalTest
                     case 3:
                         Console.WriteLine("Enter a new email of the engineer");
                         string newEmail = Console.ReadLine();
-                        newEngineer = engineer with {EngineerEmail = newEmail };
+                        newEngineer = engineer with { EngineerEmail = newEmail };
                         s_dal.Engineer.Update(newEngineer);
                         break;
                     //Update the engineer's training level
@@ -295,8 +291,8 @@ namespace DalTest
                 Console.WriteLine("The wanted Task is: " + task);
                 Console.WriteLine("What do you want to change?");
                 Console.WriteLine("1. Updating mission objectives.\r\n2. Updating the duration of the task\r\n3. Update notes on the task\r\n4. Update task description.\r\n5. Update responsible engineer.\r\n6. Updating the difficulty level of the task.\r\n7. Updating the level of the engineer's training.\r\n8. Updating the creation date of the task.\r\n9. Updating the planned date for the start of execution.\r\n10. Deadlien update.\r\n11. Updating the date of the beginning of the execution of the task.\r\n12. Updating the actual end date of the task.\r\n13. Updating the task alias.\r\n0. Return to the entity update menu");
-                
-                SelectingUpdateTask:
+
+            SelectingUpdateTask:
                 if (!(int.TryParse(Console.ReadLine(), out int selectingUpdateTask)))
                 {
                     Console.WriteLine("You entered a wrong number!\nEnter again");
@@ -316,7 +312,7 @@ namespace DalTest
                         newTask = task with { ResultOfTask = missionObjectives };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Updating the duration of the task
                     case 2:
                         Console.WriteLine("Enter the new execution duration in days");
@@ -324,7 +320,7 @@ namespace DalTest
                         newTask = task with { DurationOfExecution = durationTask };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Update notes on the task
                     case 3:
                         Console.WriteLine("Enter new notes on the task");
@@ -333,23 +329,23 @@ namespace DalTest
                         s_dal.Task.Update(newTask);
                         break;
 
-                    
+
                     //Update task description
                     case 4:
                         Console.WriteLine("Enter new task description");
-                        string newDescription =  Console.ReadLine();
+                        string newDescription = Console.ReadLine();
                         newTask = task with { DescriptionTask = newDescription };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Update responsible engineer
                     case 5:
                         Console.WriteLine("Enter new ID of the responsible engineer");
-                        int responsibleEngineer= int.Parse(Console.ReadLine());
+                        int responsibleEngineer = int.Parse(Console.ReadLine());
                         newTask = task with { EsponsibleEngineerId = responsibleEngineer };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Updating the difficulty level of the task
                     case 6:
                         Console.WriteLine("Enter new difficulty level of the task");
@@ -357,15 +353,15 @@ namespace DalTest
                         newTask = task with { DifficultyTasc = difficultyLevelTask };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Updating the level of the engineer's training
                     case 7:
                         Console.WriteLine("Enter new level of the engineer's training");
-                        Enum.TryParse<EngineerLevels> (Console.ReadLine(), out EngineerLevels engineerLevels);
+                        Enum.TryParse<EngineerLevels>(Console.ReadLine(), out EngineerLevels engineerLevels);
                         newTask = task with { EngineerLevel = engineerLevels };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Updating the creation date of the task
                     case 8:
                         Console.WriteLine("Enter new creation date of the task");
@@ -373,15 +369,15 @@ namespace DalTest
                         newTask = task with { TaskCreationDate = creationDateTask };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Updating the planned date for the start of execution
                     case 9:
                         Console.WriteLine("Enter new planned date for the start of execution");
                         DateTime.TryParse(Console.ReadLine(), out DateTime dateStartExecution);
-                        newTask = task with { PlannedDateForStartingWork  = dateStartExecution };
+                        newTask = task with { PlannedDateForStartingWork = dateStartExecution };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     //Deadlien update
                     case 10:
                         Console.WriteLine("Enter new Deadlien");
@@ -389,7 +385,7 @@ namespace DalTest
                         newTask = task with { DeadLine = Deadlien };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     // Updating the date of the beginning of the execution of the task
                     case 11:
                         Console.WriteLine("Enter new date of the beginning of the execution of the task");
@@ -397,30 +393,30 @@ namespace DalTest
                         newTask = task with { StartWorkDate = dateBeginningExecution };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     // Updating the actual end date of the task
                     case 12:
                         Console.WriteLine("Enter new actual end date of the task");
                         DateTime.TryParse(Console.ReadLine(), out DateTime actualEndDate);
-                        newTask = task with { EndOfActualWork  = actualEndDate };
+                        newTask = task with { EndOfActualWork = actualEndDate };
                         s_dal.Task.Update(newTask);
                         break;
-                    
+
                     // Updating the task alias
                     case 13:
                         Console.WriteLine("Enter new task alias");
                         string alias = Console.ReadLine();
-                        newTask = task with { Nickname = alias};
+                        newTask = task with { Nickname = alias };
                         s_dal.Task.Update(newTask);
                         break;
                 }
             }
-            
-            if (item is Dependence)
+
+            if (item is Dependency)
             {
                 Console.WriteLine("Enter an ID number of a task dependent");
                 int idTaskDependence = int.Parse(Console.ReadLine());
-                Dependence dependence = s_dal.Dependence.Read(idTaskDependence);
+                Dependency dependence = s_dal.Dependency.Read(idTaskDependence);
                 Console.WriteLine("The wanted Task is: " + dependence);
                 Console.WriteLine("What do you want to change?");
                 Console.WriteLine("1. Update the number of a task that depends\r\n2. Previous dependent task.\r\n0. Return to the entity update menu");
@@ -431,7 +427,7 @@ namespace DalTest
                     Console.WriteLine("You entered a wrong number!\nEnter again");
                     goto SelectingUpdateTaskDependence;
                 }
-                Dependence newTaskDependence;
+                Dependency newTaskDependence;
                 switch (selectingUpdateTaskDependence)
                 {
                     case 0:
@@ -442,15 +438,15 @@ namespace DalTest
                         Console.WriteLine("Enter a dependent task number");
                         int newTaskNumber = int.Parse(Console.ReadLine());
                         newTaskDependence = dependence with { TaskNumberDepends = newTaskNumber };
-                        s_dal.Dependence.Update(newTaskDependence);
+                        s_dal.Dependency.Update(newTaskDependence);
                         break;
-                    
+
                     // Previous dependent task
                     case 2:
                         Console.WriteLine("Enter the number of previous dependent task");
                         int previousDependent = int.Parse(Console.ReadLine());
                         newTaskDependence = dependence with { PreviousTaskDepends = previousDependent };
-                        s_dal.Dependence.Update(newTaskDependence);
+                        s_dal.Dependency.Update(newTaskDependence);
                         break;
                 }
             }
@@ -467,12 +463,13 @@ namespace DalTest
             try
             {
                 int EntitySelection;
-                
-                MainMenu:
+
+            MainMenu:
                 Console.WriteLine("Enter a number to select an entity\n1.'Engineer' entity\n2. 'Task' entity\n3. 'Dependence' entity\n4.Initialization data\n0. to exit");
 
-                posting:
+            posting:
                 string? stringChooseNumber = Console.ReadLine();
+
                 EntitySelection = int.Parse(stringChooseNumber);
                 if (!(int.TryParse(stringChooseNumber, out EntitySelection)))
                 {
@@ -481,7 +478,7 @@ namespace DalTest
                 }
 
 
-                switch (EntitySelection) 
+                switch (EntitySelection)
                 {
                     //Exit
                     case 0:
@@ -493,31 +490,34 @@ namespace DalTest
                         Engineer engineer = new();
                         Crud(engineer);
                         break;
-                        
+
                     //Task
                     case 2:
                         DO.Task task = new();
                         Crud(task);
                         break;
 
-                    // Dependence
+                    // Dependency
                     case 3:
-                        Dependence dependence = new();
+                        Dependency dependence = new();
                         Crud(dependence);
                         break;
 
                     //Initialization
                     case 4:
-                        Console.WriteLine("Would you like to create Initial data? (Y/N)");
-                        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                        if (ans == "Y")
+                        Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                        if (ans == "Y") //stage 3
                         {
-                            
-                            try {Initialization.Do(s_dal); }
+
+                            try
+                            { //Initialization.Do(s_dal); //stage 2
+                                Initialization.Do();
+                            }//stage 4
                             catch (Exception ex)
                             { Console.WriteLine(ex); }
                         }
-                        
+
                         break;
                     // defolte
                     default:
@@ -525,12 +525,12 @@ namespace DalTest
                         break;
                 }
 
-                if (EntitySelection == 0) 
+                if (EntitySelection == 0)
                     return;
 
                 goto MainMenu;
             }
-            catch (DalDoesNotExistException ex) 
+            catch (DalDoesNotExistException ex)
             {
                 Console.WriteLine(ex);
                 Console.WriteLine("Start again");
@@ -554,4 +554,3 @@ namespace DalTest
         }
     }
 }
-

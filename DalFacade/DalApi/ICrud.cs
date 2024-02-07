@@ -1,7 +1,7 @@
 ﻿namespace DalApi;
 
 
-public interface ICrud<T> where T : class 
+public interface ICrud<T> where T : class
 {
     int Create(T item);
     T? Read(int id);

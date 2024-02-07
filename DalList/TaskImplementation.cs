@@ -1,11 +1,9 @@
 ﻿namespace Dal;
 
-using DalApi;                    
+using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 internal class TaskImplementation : ITask
 {
@@ -17,7 +15,7 @@ internal class TaskImplementation : ITask
         {
             throw new DalAlreadyExistsException($"Task with number = {task.NumOfTask} already exists");
         }
-        DO.Task newTask = task with {NumOfTask = DataSource.Config.NumOfNextTask };
+        DO.Task newTask = task with { NumOfTask = DataSource.Config.NumOfNextTask };
         //Creating a new instance is exactly the same only the task number
         //has been updated to the runner number
 
@@ -102,7 +100,7 @@ internal class TaskImplementation : ITask
                 DataSource.Tasks.RemoveAt(i);
             }
         }
-        if (i==DataSource.Tasks.Count)
+        if (i == DataSource.Tasks.Count)
         {
             throw new Exception("An object with such an ID does not exist");
         }
@@ -115,7 +113,7 @@ internal class TaskImplementation : ITask
         //But, if the condition is not null then we will activate the filter on each object to check if it is met.
         //if it is met then we will return the first object that received the value 'true'
         var reTask = from task in DataSource.Tasks
-                     where filter==null || filter(task)
+                     where filter == null || filter(task)
                      select task;
         return reTask.FirstOrDefault();
     }

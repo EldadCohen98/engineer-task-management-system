@@ -1,8 +1,4 @@
-﻿
-using System;
-using static DO.DifficultyLevelTask;
-
-namespace DO;
+﻿namespace DO;
 
 /// <summary>
 /// The Task entity is an entity that represents a task with all its attributes
@@ -23,12 +19,12 @@ namespace DO;
 public record Task
 (
     int NumOfTask,
-    string ResultOfTask,     
+    string ResultOfTask,
     int DurationOfExecution,
     string Comment,
-    string DescriptionTask, 
-    int? EsponsibleEngineerId=null,
-    DifficultyLevelTask? DifficultyTasc= null,
+    string DescriptionTask,
+    int? EsponsibleEngineerId = null,
+    DifficultyLevelTask? DifficultyTasc = null,
     EngineerLevels? EngineerLevel = null,
 
 
@@ -36,15 +32,15 @@ public record Task
     DateTime? TaskCreationDate = null,
 
     DateTime? PlannedDateForStartingWork = null,
-    DateTime? DeadLine= null,
-    
+    DateTime? DeadLine = null,
+
     DateTime? StartWorkDate = null,
     DateTime? EndOfActualWork = null,
-    bool Milestone = false,               
-    string? Nickname = null, 
+    bool Milestone = false,
+    string? Nickname = null,
     bool? erasable = null
 
 )
 {
-    public Task() : this(0, "", 0, "", "") { }    
-} 
+    public Task() : this(0, "", 0, "", "") { }
+}

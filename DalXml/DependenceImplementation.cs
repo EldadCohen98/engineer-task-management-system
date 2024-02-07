@@ -2,21 +2,14 @@
 using DalApi;
 using DO;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 
-
-internal class DependenceImplementation:IDependence
+internal class DependenceImplementation : IDependence
 {
     readonly string s_dependence_xml = "dependences";
 
-    public int Create(Dependence newDependence)
+    public int Create(Dependency newDependence)
     {
         //Create root for XML file
         XElement newRootXElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
@@ -42,13 +35,13 @@ internal class DependenceImplementation:IDependence
             throw new DalDeletionImpossibleException($"Task depends with number = {id} cannot be deleted");
 
         XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
-        var deleteElement = reDependenceElement.Elements().FirstOrDefault(idDependence => Convert.ToInt32(idDependence.Element("IdNumber").Value)==id);
+        var deleteElement = reDependenceElement.Elements().FirstOrDefault(idDependence => Convert.ToInt32(idDependence.Element("IdNumber").Value) == id);
 
         deleteElement!.Remove();
         XMLTools.SaveListToXMLElement(reDependenceElement, s_dependence_xml);
     }
 
-    public Dependence? Read(int id)
+    public Dependency? Read(int id)
     {
         //Loading from an XML file into an XElement
         XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
@@ -62,26 +55,26 @@ internal class DependenceImplementation:IDependence
             return null;
 
         //Conversion of the fields in XElement to a task that will return
-        int idTask = int.Parse(reDependenceElement.Element("IdNumber")!.Value); 
+        int idTask = int.Parse(reDependenceElement.Element("IdNumber")!.Value);
         int numberTask = int.Parse(reDependenceElement.Element("TaskNumberDepends")!.Value);
         int previousTask = int.Parse(reDependenceElement.Element("PreviousTaskDepends")!.Value);
 
         //Entry of all values into a new task
-        Dependence? dependence = new(idTask, numberTask, previousTask);
+        Dependency? dependence = new(idTask, numberTask, previousTask);
 
         return dependence;
     }
 
-    public Dependence? Read(Func<Dependence, bool> filter)
+    public Dependency? Read(Func<Dependency, bool> filter)
     {
         XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
         IEnumerable<XElement> allElements = reDependenceElement.Elements();
-        List<Dependence?> listDependences = new();
+        List<Dependency?> listDependences = new();
 
         //We will go through all the elements until we find the requested element
         foreach (var element in allElements)
         {
-            Dependence newNode = new Dependence(Convert.ToInt32(element.Element("IdNumber")!.Value),
+            Dependency newNode = new Dependency(Convert.ToInt32(element.Element("IdNumber")!.Value),
                                                     int.Parse(element.Element("TaskNumberDepends")!.Value),
                                                     int.Parse(element.Element("PreviousTaskDepends")!.Value));
             if (filter(newNode))
@@ -90,11 +83,11 @@ internal class DependenceImplementation:IDependence
         return null;
     }
 
-    public IEnumerable<Dependence?> ReadAll(Func<Dependence, bool>? filter = null)
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
         XElement reDependenceElement = XMLTools.LoadListFromXMLElement(s_dependence_xml);
         IEnumerable<XElement> allElements = reDependenceElement.Elements();
-        List<Dependence?> listDependences = new();
+        List<Dependency?> listDependences = new();
 
 
         //If we don't have any condition it means that we have to return the whole element
@@ -104,7 +97,7 @@ internal class DependenceImplementation:IDependence
         {
             foreach (var element in allElements)
             {
-                Dependence newNode = new Dependence(Convert.ToInt32(element.Element("IdNumber")!.Value),
+                Dependency newNode = new Dependency(Convert.ToInt32(element.Element("IdNumber")!.Value),
                                                     int.Parse(element.Element("TaskNumberDepends")!.Value),
                                                     int.Parse(element.Element("PreviousTaskDepends")!.Value));
                 listDependences.Add(newNode);
@@ -117,7 +110,7 @@ internal class DependenceImplementation:IDependence
         {
             foreach (var element in allElements)
             {
-                Dependence newNode = new Dependence(Convert.ToInt32(element.Element("IdNumber")!.Value),
+                Dependency newNode = new Dependency(Convert.ToInt32(element.Element("IdNumber")!.Value),
                                                         int.Parse(element.Element("TaskNumberDepends")!.Value),
                                                         int.Parse(element.Element("PreviousTaskDepends")!.Value));
                 if (filter(newNode))
@@ -127,7 +120,7 @@ internal class DependenceImplementation:IDependence
         }
     }
 
-    public void Update(Dependence newDependence)
+    public void Update(Dependency newDependence)
     {
         if (Read(newDependence.DependencyIdNumber) is null)
             throw new DalDoesNotExistException($"Task depends with number = {newDependence.DependencyIdNumber} does not exist");

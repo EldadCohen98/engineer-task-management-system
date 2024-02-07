@@ -1,13 +1,18 @@
 ﻿namespace Dal;
 using DalApi;
-using DO;
-using System.Collections.Generic;
 
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
-    public IEngineer Engineer => new EngineerImplementation();
-
     public ITask Task => new TaskImplementation();
 
-    public IDependence Dependence => new DependenciesImplementation(); 
+    public IEngineer Engineer => new EngineerImplementation();
+
+    public IDependence Dependency => new DependenciesImplementation();
+
+    public static IDal Instance { get; } = new DalList();
+
+
+    private DalList() { }
+
+
 }

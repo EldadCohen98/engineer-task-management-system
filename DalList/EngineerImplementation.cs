@@ -5,8 +5,6 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -27,8 +25,8 @@ internal class EngineerImplementation : IEngineer
     {
         //Using a Linq query to select the required engineer
         var reEngineer = from engineer in DataSource.Engineers
-                     where (engineer.EngineerId) == id
-                     select engineer;
+                         where (engineer.EngineerId) == id
+                         select engineer;
         return reEngineer.FirstOrDefault();
     }
 
@@ -107,8 +105,8 @@ internal class EngineerImplementation : IEngineer
         //But, if the condition is not null then we will activate the filter on each object to check if it is met.
         //if it is met then we will return the first object that received the value 'true'
         var reEngineer = from engineer in DataSource.Engineers
-                     where filter == null || filter(engineer)
-                     select engineer;
+                         where filter == null || filter(engineer)
+                         select engineer;
         return reEngineer.FirstOrDefault();
     }
     public void Clear()
@@ -116,4 +114,4 @@ internal class EngineerImplementation : IEngineer
         DataSource.Engineers.Clear();
     }
 }
-    
+
