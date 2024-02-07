@@ -1,17 +1,15 @@
 ﻿using DalApi;
 using DO;
-using System.Data.Common;
-using System.Threading.Tasks;
 
 namespace Dal;
 
-internal class TaskImplementation:ITask
+internal class TaskImplementation : ITask
 {
     private readonly string s_task_xml = "tasks";
 
     public int Create(DO.Task task)
     {
-        if (Read(task.NumOfTask)is not null)
+        if (Read(task.NumOfTask) is not null)
         {
             throw new DalAlreadyExistsException($"Task with number = {task.NumOfTask} already exists");
         }
@@ -21,7 +19,7 @@ internal class TaskImplementation:ITask
         int nextIdNumber = Config.nextNumberOfTask;
         DO.Task newTask = task with { NumOfTask = nextIdNumber };
         tasks.Add(newTask);
-        XMLTools.SaveListToXMLSerializer(tasks , s_task_xml);
+        XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
         return task.NumOfTask;
     }
 
@@ -60,8 +58,8 @@ internal class TaskImplementation:ITask
         List<DO.Task> tasks = new List<DO.Task>();
         tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task_xml);
 
-        var reTask = from task in tasks 
-                     where filter==null|| filter(task)
+        var reTask = from task in tasks
+                     where filter == null || filter(task)
                      select task;
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
         return reTask.FirstOrDefault();
@@ -75,12 +73,12 @@ internal class TaskImplementation:ITask
         if (filter == null)
         {
             //If a certain condition was not met, then we will simply return the entire list as it is
-            return tasks.Select(item=>item).ToList();
+            return tasks.Select(item => item).ToList();
         }
         else
         {
             //If a condition is accepted, we will select all the elements that receive "true" in this condition
-            return tasks.Where(item=>filter(item)).ToList();
+            return tasks.Where(item => filter(item)).ToList();
         }
     }
 

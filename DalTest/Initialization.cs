@@ -1,6 +1,5 @@
 ﻿namespace DalTest;
 
-using Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ public static class Initialization
 
     public static void Do()
     {
-        s_dal = DalApi.Factory.Get;
+        s_dal = dal ?? throw new NullReferenceException("DAL can not be null");
 
         clearLists();
         CreateEngineer();
@@ -25,12 +24,12 @@ public static class Initialization
     {
         s_dal.Engineer.Clear();
         s_dal.Task.Clear();
-        s_dal.Dependence.Clear();
+        s_dal.Dependency.Clear();
     }
 
     private static void CreateTask()
     {
-        
+
         EngineerLevels trainingEngineerLevel;
         DifficultyLevelTask difficultyLevelTask;
         int? idEngineer;
@@ -55,15 +54,15 @@ public static class Initialization
         for (int i = 0; i < 50; i++)
         {
             string descriptionTsak = "Task number" + (i + 1).ToString();
-            string nicknameTask= ("T")+(i+1).ToString();
+            string nicknameTask = ("T") + (i + 1).ToString();
             trainingEngineerLevel = engineerLevels[SRandom.Next(0, 4)];
             idEngineer = engineers[SRandom.Next(0, totalEngineers)]!.EngineerId;
             difficultyLevelTask = levelTasks[SRandom.Next(0, 3)];
-            Task task = new(0,"",0,"", descriptionTsak, idEngineer, difficultyLevelTask, trainingEngineerLevel, DateTime.Today,new DateTime(2025, 01, 01), new DateTime(2028, 08, 01), null,null,false, nicknameTask);
+            Task task = new(0, "", 0, "", descriptionTsak, idEngineer, difficultyLevelTask, trainingEngineerLevel, DateTime.Today, new DateTime(2025, 01, 01), new DateTime(2028, 08, 01), null, null, false, nicknameTask);
             s_dal!.Task.Create(task);
-        } 
+        }
     }
-    private static void CreateEngineer() 
+    private static void CreateEngineer()
     {
         int maxId = 400000000, minId = 200000000;
         int _id;
@@ -105,7 +104,7 @@ public static class Initialization
                 } while (s_dal!.Engineer.Read(_id) != null);
                 nameEngineer = stringNameAndEmail.Item1;
                 emailEnginrr = stringNameAndEmail.Item2;
-                trainingEngineerLevel = engineerLevels[SRandom.Next(0,4)];
+                trainingEngineerLevel = engineerLevels[SRandom.Next(0, 4)];
                 float perHour = SRandom.Next(5000, 20000);
                 Engineer newEngineer = new(_id, nameEngineer, emailEnginrr, trainingEngineerLevel, perHour);
                 s_dal!.Engineer.Create(newEngineer);
@@ -113,15 +112,15 @@ public static class Initialization
         }
     }
 
-    private static void CreateDependence() 
+    private static void CreateDependence()
     {
         List<Task> dependence = (List<Task>)s_dal!.Task.ReadAll();
 
         for (int i = 0; i < 50; i++)
         {
             int idTask1 = dependence[SRandom.Next(0, dependence.Count)]!.NumOfTask;
-            Dependence newDependence = new(0, idTask1, dependence[SRandom.Next(0, dependence.Count)]!.NumOfTask);
-            s_dal!.Dependence.Create(newDependence);
+            Dependency newDependence = new(0, idTask1, dependence[SRandom.Next(0, dependence.Count)]!.NumOfTask);
+            s_dal!.Dependency.Create(newDependence);
 
         }
     }

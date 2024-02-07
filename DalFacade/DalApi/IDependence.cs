@@ -2,7 +2,7 @@
 
 using DO;
 
-public interface IDependence:ICrud<Dependence>
+public interface IDependence : ICrud<Dependency>
 {
- 
+
 }

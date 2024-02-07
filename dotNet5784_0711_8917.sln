@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{6E82A111-5F41-4A2D-B072-A907F9F837A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC1602DD-E293-4B7C-BB17-1CEA3CEFEB7F}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{B59F6060-DC46-4A4C-A8D9-A9E8032BFE5B}"
 EndProject
@@ -57,14 +54,6 @@ Global
 		{B59F6060-DC46-4A4C-A8D9-A9E8032BFE5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B59F6060-DC46-4A4C-A8D9-A9E8032BFE5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B59F6060-DC46-4A4C-A8D9-A9E8032BFE5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A2FA2A5-091D-4D2A-88F6-A2A34EFEB54B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A2FA2A5-091D-4D2A-88F6-A2A34EFEB54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A2FA2A5-091D-4D2A-88F6-A2A34EFEB54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A2FA2A5-091D-4D2A-88F6-A2A34EFEB54B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9942B28C-F0E4-4400-94FC-701C7240B8CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9942B28C-F0E4-4400-94FC-701C7240B8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9942B28C-F0E4-4400-94FC-701C7240B8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9942B28C-F0E4-4400-94FC-701C7240B8CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ namespace DO
     /// <param name="DependencyIdNumber"></param> Automatic running number of
     /// <param name="TaskNumberDepends"></param> Mission Identification Number
     /// <param name="PreviousTaskDepends"></param> Previous assignment identification number
-    public record Dependence  
+    public record Dependency
     (
        int DependencyIdNumber,
        int TaskNumberDepends,
@@ -15,6 +15,6 @@ namespace DO
        bool? erasable = null
     )
     {
-        public Dependence() :this(0,0,0) { } 
+        public Dependency() : this(0, 0, 0) { }
     }
 }

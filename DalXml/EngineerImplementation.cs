@@ -3,10 +3,8 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-internal class EngineerImplementation:IEngineer
+internal class EngineerImplementation : IEngineer
 {
     readonly string s_engineer_xml = "engineers";
 
@@ -14,14 +12,14 @@ internal class EngineerImplementation:IEngineer
     {
         //Checking if the object is in the file.
         //If so an exception is thrown
-        if (Read(engineer.EngineerId)is not null)
+        if (Read(engineer.EngineerId) is not null)
         {
             throw new DalAlreadyExistsException($"An engineer with an ID {engineer.EngineerId} already exists");
         }
 
         List<Engineer> engineers = new List<Engineer>();
         engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer_xml);
-        
+
         engineers.Add(engineer);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
         return engineer.EngineerId;
@@ -30,7 +28,7 @@ internal class EngineerImplementation:IEngineer
     public void Delete(int id)
     {
         //Checking if there is a wanted engineer
-        if (Read(id) is  null)
+        if (Read(id) is null)
         {
             throw new DalDoesNotExistException($"An engineer with an ID {id} does not exists");
         }
@@ -61,7 +59,7 @@ internal class EngineerImplementation:IEngineer
                          where engineer.EngineerId == id
                          select engineer;
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
-        
+
         return reEngineer.FirstOrDefault();
     }
 
@@ -75,7 +73,7 @@ internal class EngineerImplementation:IEngineer
         engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer_xml);
 
         var reEngineer = from engineer in engineers
-                         where filter==null||filter(engineer)
+                         where filter == null || filter(engineer)
                          select engineer;
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
         return reEngineer.FirstOrDefault();
@@ -88,11 +86,11 @@ internal class EngineerImplementation:IEngineer
 
         if (filter == null)
         {
-            return engineers.Select(item=>item).ToList();
+            return engineers.Select(item => item).ToList();
         }
         else
         {
-            return engineers.Where(item=>filter(item)).ToList();
+            return engineers.Where(item => filter(item)).ToList();
         }
     }
 
@@ -117,7 +115,7 @@ internal class EngineerImplementation:IEngineer
     public void Clear()
     {
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer_xml);
-        engineers.Clear();       
+        engineers.Clear();
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);
     }
 }

@@ -2,14 +2,12 @@
 
 using DalApi;
 using DO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 internal class DependenciesImplementation : IDependence
 {
-    public int Create(Dependence dependence)
+    public int Create(Dependency dependence)
     {
 
         //Checking if the object is in the list.
@@ -19,12 +17,12 @@ internal class DependenciesImplementation : IDependence
             throw new DalAlreadyExistsException($"Task depends with ID number = {dependence.DependencyIdNumber} already exists");
         }
 
-        Dependence newDependenceTask = dependence with { DependencyIdNumber = DataSource.Config.NumOfNextTask };
+        Dependency newDependenceTask = dependence with { DependencyIdNumber = DataSource.Config.NumOfNextTask };
         DataSource.Dependences.Add(newDependenceTask);
         return newDependenceTask.DependencyIdNumber;
     }
 
-    public Dependence? Read(int id)
+    public Dependency? Read(int id)
     {
         //Using a Linq query to select the required dependence task
         var reDependence = from dependence in DataSource.Dependences
@@ -33,7 +31,7 @@ internal class DependenciesImplementation : IDependence
         return reDependence.FirstOrDefault();
     }
 
-    public IEnumerable<Dependence?> ReadAll(Func<Dependence, bool>? filter = null)
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
         if (filter == null)
         {
@@ -47,7 +45,7 @@ internal class DependenciesImplementation : IDependence
         }
     }
 
-    public void Update(Dependence dependence)
+    public void Update(Dependency dependence)
     {
 
         //Checking if there is an object that should be updated
@@ -57,7 +55,7 @@ internal class DependenciesImplementation : IDependence
             throw new DalDoesNotExistException($"Task depends with number = {dependence.TaskNumberDepends} does not exist");
         }
 
-        //Update Dependence details
+        //Update Dependency details
         //Delete his old details and re-add him to the database with updated details
         int i = 0;
         for (; i < DataSource.Dependences.Count; i++)
@@ -81,14 +79,14 @@ internal class DependenciesImplementation : IDependence
             throw new DalDoesNotExistException($"Task depends with number = {id} does not exist");
         }
 
-        if ((Read(id) is not null)&& Read(id).erasable == true)
-        { 
+        if ((Read(id) is not null) && Read(id).erasable == true)
+        {
             throw new DalDeletionImpossibleException($"Task depends with number = {id} cannot be deleted");
         }
 
         //Deleting a task by its number.
         //everything can be deleted.
-        
+
         for (int i = 0; i < DataSource.Dependences.Count; i++)
         {
             if (DataSource.Dependences[i].TaskNumberDepends == id)
@@ -99,15 +97,15 @@ internal class DependenciesImplementation : IDependence
         }
     }
 
-    public Dependence? Read(Func<Dependence, bool> filter)
+    public Dependency? Read(Func<Dependency, bool> filter)
     {
         //Check if the function of filtering the objects in the list
         //If the condition is null there is nothing to do the filtering and the method will return the first element in the list.
         //But, if the condition is not null then we will activate the filter on each object to check if it is met.
         //if it is met then we will return the first object that received the value 'true'
         var reDependence = from dependence in DataSource.Dependences
-                     where filter == null || filter(dependence)
-                     select dependence;
+                           where filter == null || filter(dependence)
+                           select dependence;
         return reDependence.FirstOrDefault();
     }
 
