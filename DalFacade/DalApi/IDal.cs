@@ -1,5 +1,4 @@
 ﻿
-
 namespace DalApi;
 
 public interface IDal

@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using DO;
 using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace DalTest
     public class Program
     {
         //static readonly IDal s_dal = new DalList();
-        static readonly IDal s_dal = new DalXml();
+        //static readonly IDal s_dal = new DalXml();
+        static readonly IDal s_dal = Factory.Get;
 
 
         // A private method for all entity CRUD methods
@@ -513,7 +515,7 @@ namespace DalTest
                         if (ans == "Y") //stage 3
                         {
                             
-                            try {Initialization.Do(s_dal); }
+                            try {Initialization.Do(); }
                             catch (Exception ex)
                             { Console.WriteLine(ex); }
                         }

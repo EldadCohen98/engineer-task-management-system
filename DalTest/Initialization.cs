@@ -1,9 +1,9 @@
-﻿namespace DalTest;
+﻿namespace DalApi;
+
 
 using DalApi;
 using DO;
 using System.Collections.Generic;
-
 public static class Initialization
 {
     private static IDal? s_dal;
@@ -12,8 +12,8 @@ public static class Initialization
 
     public static void Do()
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL can not be null");
-
+        //s_dal = dal ?? throw new NullReferenceException("DAL can not be null");
+        s_dal = DalApi.Factory.Get;
         clearLists();
         CreateEngineer();
         CreateTask();

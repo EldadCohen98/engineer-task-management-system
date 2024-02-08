@@ -1,10 +1,13 @@
-﻿using System;
+﻿using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static DalApi.Config;
+
+namespace Dal;
 
 public static class Factory
 {
@@ -27,6 +30,6 @@ public static class Factory
                 throw new DalConfigException($"Class {dal.Class} is not a singleton or wrong property name for Instance");
         }
     }
-    }
-
 }
+
+
