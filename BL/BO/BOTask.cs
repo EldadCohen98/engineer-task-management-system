@@ -14,12 +14,13 @@ public class BOTask
 
 
     //--- dates ---//
-    DateTime? TaskCreationDate {  get; set; }
+    public DateTime? TaskCreationDate {  get; set; }
 
-    DateTime? PlannedDateForStartingWork {  get; set; }
-    DateTime? DeadLine {  get; set; }
+    public DateTime? PlannedDateForStartingWork {  get; set; }
+    public DateTime? DeadLine {  get; set; }
     
-    DateTime? StartWorkDate {  get; set; }
-    DateTime? EndOfActualWork{  get; set; }
-    string? Nickname {  get; set; } 
+    public DateTime? StartWorkDate {  get; set; }
+    public DateTime? EndOfActualWork{  get; set; }
+    public string? Nickname {  get; set; }
+    public List<BO.TaskInTheList>? TasksListDependence{ get; set; }
 }

@@ -1,4 +1,4 @@
-﻿namespace DalApi;
+﻿namespace DalTest;
 
 
 using DalApi;
@@ -22,7 +22,7 @@ public static class Initialization
 
     private static void clearLists()
     {
-        s_dal.Engineer.Clear();
+        s_dal!.Engineer.Clear();
         s_dal.Task.Clear();
         s_dal.Dependency.Clear();
     }

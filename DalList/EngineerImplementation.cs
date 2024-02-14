@@ -82,7 +82,7 @@ internal class EngineerImplementation : IEngineer
             throw new DalDoesNotExistException($"Engineer with number = {id} does not exist");
         }
 
-        if ((Read(id) is not null) && Read(id).erasable == true)
+        if ((Read(id) is not null) && Read(id)!.erasable == true)
         {
             throw new DalDeletionImpossibleException($"Engineer with ID number = {id} cannot be deleted");
         }

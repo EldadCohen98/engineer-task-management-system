@@ -71,7 +71,7 @@ internal class TaskImplementation : ITask
         }
         if (DataSource.Tasks.Count == i)
         {
-            throw new Exception("An object with such an ID does not exist");
+            throw new DalDoesNotExistException($"Task with number = {task.NumOfTask} does not exist");
         }
     }
 
@@ -87,7 +87,7 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException($"Task with number = {id} does not exist");
         }
 
-        if ((Read(id) is not null) && Read(id).erasable == true)
+        if ((Read(id) is not null) && Read(id)!.erasable == true)
         {
             throw new DalDeletionImpossibleException($"Task with number = {id} cannot be deleted");
         }

@@ -12,8 +12,8 @@ public enum EngineerLevels
 
 public enum DifficultyLevelTask
 {
-    Competent,
     Novice,
+    Competent,
     Expert
 }
 
