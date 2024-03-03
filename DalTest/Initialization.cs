@@ -4,6 +4,8 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Data.Common;
+
 public static class Initialization
 {
     private static IDal? s_dal;
@@ -20,7 +22,7 @@ public static class Initialization
         CreateDependence();
     }
 
-    private static void clearLists()
+    public static void clearLists()
     {
         s_dal!.Engineer.Clear();
         s_dal.Task.Clear();

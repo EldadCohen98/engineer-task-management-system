@@ -10,13 +10,14 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading.Channels;
 
 namespace BlImplementation;
 
 internal class BOTaskImplementation : IBOTask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-
+    
     public static Status? getStatus(DO.Task doTask)
     {
         if (doTask.PlannedDateForStartingWork == null)
@@ -51,7 +52,7 @@ internal class BOTaskImplementation : IBOTask
         if (bOTask.Nickname == null || bOTask.Nickname.Length == 0)
             throw new BlIncorrectInput($"The task does not have an alias");
 
-        DO.Task? doTask = new DO.Task((int)bOTask.NumOfTask!,
+        DO.Task? doTask = new DO.Task(0,
                                    bOTask.ResultOfTask!,
                                    bOTask.DurationOfExecution,
                                    bOTask.Comment!,
@@ -70,6 +71,7 @@ internal class BOTaskImplementation : IBOTask
 
         List<DO.Dependency?> DoListDependency = new List<DO.Dependency?>(_dal.Dependency.ReadAll());
 
+        //Deleting all the tasks that the task depends on
         foreach (var DoDependency in DoListDependency)
         {
             if (DoDependency!.TaskNumberDepends==bOTask.NumOfTask)
@@ -78,9 +80,35 @@ internal class BOTaskImplementation : IBOTask
             }
         }
 
+        //Reception of new pending tasks
+        Console.WriteLine("Enter preliminary tasks\r\n0 - end of reception");
+        int check = int.Parse(Console.ReadLine()!);
+
+        while (check>0)
+        {
+            Console.WriteLine("Enter the number, description, status and nickname of a preliminary task");
+            int dependenceTAskId = int.Parse(Console.ReadLine()!);
+            string DescriptionTask = Console.ReadLine()!;
+            BO.Status statusDependencyTask;
+            Enum.TryParse<BO.Status>(Console.ReadLine()!, out statusDependencyTask);
+            string nicknameDependencyTask = Console.ReadLine()!;
+
+            TaskInTheList dependencytask = new TaskInTheList()
+            {
+                NumOfTask = dependenceTAskId,
+                DescriptionTask = DescriptionTask,
+                status = statusDependencyTask,
+                Nickname = nicknameDependencyTask,
+            };
+            bOTask.TasksListDependence!.Add(dependencytask);
+            Console.WriteLine("Enter preliminary tasks\r\n0 - end of reception");
+            check = int.Parse(Console.ReadLine()!);
+        }
+
+        //Update of data layer dependencies
         foreach (var BoDependency in bOTask.TasksListDependence!)
         {
-            DO.Dependency dOdependency = new DO.Dependency(BoDependency.NumOfTask, (int)bOTask.NumOfTask, 0,null);
+            DO.Dependency dOdependency = new DO.Dependency(BoDependency.NumOfTask, (int)bOTask.NumOfTask!, 0,null);
             _dal.Dependency.Create(dOdependency);
         }
 

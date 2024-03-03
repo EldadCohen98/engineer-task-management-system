@@ -1,5 +1,9 @@
 ﻿
 
+using BO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
 namespace BlApi;
 /// <summary>
 /// Interface for an engineer logical entity
@@ -21,4 +25,9 @@ public interface IBOEngineer
 
     //Update existing engineer details
     public void Update(BO.BOEngineer bOEngineer);
+
+    public void Initial();
+
+    public void Reset();
+
 }

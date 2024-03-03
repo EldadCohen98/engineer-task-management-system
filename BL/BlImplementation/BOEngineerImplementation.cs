@@ -12,13 +12,13 @@ internal class BOEngineerImplementation : IBOEngineer
 
     public int? Add(BO.BOEngineer bOEngineer)
     {
-        if(bOEngineer.EngineerId!>0)
+        if(bOEngineer.EngineerId<=0)
             throw new BO.BlIncorrectInput($"An engineer ID number cannot be negative");
 
         if (bOEngineer.EngineerName == null || bOEngineer.EngineerName.Length == 0)
             throw new BO.BlIncorrectInput($"An engineer's name cannot be an empty string");
 
-        if(bOEngineer.SalaryPerHour!>0)
+        if(bOEngineer.SalaryPerHour<=0)
             throw new BO.BlIncorrectInput($"An engineer's salary cannot be negative");
   
 
@@ -50,9 +50,9 @@ internal class BOEngineerImplementation : IBOEngineer
             EngineerEmail = doEngineer.EngineerEmail,
             SalaryPerHour = doEngineer.SalaryPerHour,
             //Returning the ID number of the task that the engineer is responsible for
-            CurrentTaskId = _dal.Task.Read(task => task.EsponsibleEngineerId == EngineerIdFromPl)!.NumOfTask,
+            //CurrentTaskId = _dal.Task.Read(task => task.EsponsibleEngineerId == EngineerIdFromPl)!.NumOfTask,
             //Returning the engineer's mission description
-            Nickname = _dal.Task.Read(task => task.EsponsibleEngineerId == EngineerIdFromPl)!.Nickname
+            //Nickname = _dal.Task.Read(task => task.EsponsibleEngineerId == EngineerIdFromPl)!.Nickname
         };
     }
 
@@ -121,6 +121,7 @@ internal class BOEngineerImplementation : IBOEngineer
 
         }
     }
+
     public void Update(BO.BOEngineer bOEngineer)
     {
         if (bOEngineer.EngineerId! > 0)
@@ -145,5 +146,15 @@ internal class BOEngineerImplementation : IBOEngineer
         {
             throw new BlDoesNotExistException($"Engineer with number = {bOEngineer.EngineerId} dose not exists "); 
         }
+    }
+
+    public void Initial()
+    {
+        DalTest.Initialization.Do();
+    }
+
+    public void Reset()
+    {
+        DalTest.Initialization.clearLists();
     }
 }

@@ -32,12 +32,12 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException($"Task with number = {id} does not exist");
         }
 
-        if ((Read(id) is not null) && Read(id).erasable == true)
+        if ((Read(id) is not null) && Read(id)!.erasable == true)
         {
             throw new DalDeletionImpossibleException($"Task with number = {id} cannot be deleted");
         }
 
-        tasks.Remove(Read(id));
+        tasks.Remove(Read(id)!);
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
     }
 
@@ -89,10 +89,10 @@ internal class TaskImplementation : ITask
 
         if (task == null)
         {
-            throw new DalDoesNotExistException($"Task with number = {task.NumOfTask} was not found");
+            throw new DalDoesNotExistException($"Task with number = {task!.NumOfTask} was not found");
         }
 
-        tasks.Remove(Read(task.NumOfTask));
+        tasks.Remove(Read(task.NumOfTask)!);
         tasks.Add(task);
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);
 

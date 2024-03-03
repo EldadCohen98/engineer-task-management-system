@@ -5,5 +5,8 @@ public class EngineerInTask
 {
     public int EngineerId {  get; init; }
     public string? EngineerName { get; set; }
-    public int IdTask {  get; init; }
+    public override string ToString()
+    {
+        return "ID Engineer: " + EngineerId+ "Name Engineer: "+ EngineerName;
+    }
 }

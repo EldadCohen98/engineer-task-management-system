@@ -94,11 +94,12 @@ namespace BlTest
                     BOEngineer bOEngineer = new BOEngineer()
                     {
                         EngineerId = ID,
+                        EngineerName = name,
                         EngineerEmail = email,
                         LeverOfEngineer = level,
                         SalaryPerHour = salary,
-                        CurrentTaskId = newTask.NumOfTask,
-                        Nickname = newTask.Nickname,
+                        //CurrentTaskId = newTask.NumOfTask,
+                        //Nickname = newTask.Nickname,
                     };
 
                     s_bl.BOEngineer.Add(bOEngineer);
@@ -322,8 +323,8 @@ namespace BlTest
             {   
                 //Add 
                 case 1:
-                    Console.WriteLine("Enter the following values in order:\r\n" + "1. Task number: ");
-                    int? taskNumber = int.Parse(Console.ReadLine()!);
+                    //Console.WriteLine("Enter the following values in order:\r\n" + "1. Task number: ");
+                    //int? taskNumber = int.Parse(Console.ReadLine()!);
 
                     Console.Write("\r\n2. The results of the mission: ");
                     string? missionResults = Console.ReadLine()!;
@@ -372,7 +373,7 @@ namespace BlTest
 
                     BO.BOTask newtask = new BO.BOTask()
                     {
-                        NumOfTask = taskNumber,
+                        NumOfTask = 0,
                         ResultOfTask = missionResults,
                         DurationOfExecution = (int)Duration,
                         Comment = comment,

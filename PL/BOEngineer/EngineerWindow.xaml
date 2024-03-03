@@ -1,0 +1,36 @@
+﻿<Window x:Class="PL.BOEngineer.EngineerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.BOEngineer"
+        mc:Ignorable="d"
+        Title="EngineerWindow" Height="450" Width="800"
+           	DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+    <Grid>
+
+        <Label Content="Engineer ID:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="177" FontWeight="Bold" FontSize="22"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,15,0,0" TextWrapping="Wrap" Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Name="IdEngineer" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}"/>
+
+        <Label Content="Engineer Name:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="177" FontWeight="Bold" FontSize="22"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,76,0,0" TextWrapping="Wrap" Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Name="NameEngineer" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}" />
+
+        <Label Content="Engineer Mail:" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="177" FontWeight="Bold" FontSize="22"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,133,0,0" TextWrapping="Wrap" Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}"/>
+
+        <Label Content="Engineer Level:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Width="177" FontWeight="Bold" FontSize="22"/>
+        <ComboBox HorizontalAlignment="Left" Margin="187,190,0,0" VerticalAlignment="Top" Width="266" Height="30" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" SelectedValue="{Binding LeverOfEngineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+
+        <Label Content="Engineer Salary:" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Width="177" FontWeight="Bold" FontSize="22"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,247,0,0" TextWrapping="Wrap" Text="{Binding SalaryPerHour, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}"/>
+
+        <Label Content="Engineer Task Id:" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Height="41" Width="177" FontWeight="Bold" FontSize="21"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,303,0,0" TextWrapping="Wrap" Text="{Binding CurrentTaskId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}"/>
+
+        <Label Content="Nickname Task:" HorizontalAlignment="Left" Margin="10,352,0,0" VerticalAlignment="Top" Height="41" Width="177" FontWeight="Bold" FontSize="21"/>
+        <TextBox HorizontalAlignment="Left" Margin="187,360,0,0" TextWrapping="Wrap" Text="{Binding Nickname, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="266" Height="30" FontSize="18" FontWeight="Bold" Background="{x:Null}"/>
+
+        <Button Content="{Binding EngineerId, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" HorizontalAlignment="Left" Margin="585,129,0,0" VerticalAlignment="Top" Height="78" Width="146" FontWeight="Bold" FontSize="20" Click="AddNewEngineer"/>
+        
+    </Grid>
+</Window>
