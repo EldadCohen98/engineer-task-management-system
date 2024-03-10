@@ -37,11 +37,11 @@ internal class BOEngineerImplementation : IBOEngineer
         }
 
     }
-    public BO.BOEngineer Read(int EngineerIdFromPl)
+    public BO.BOEngineer? Read(int EngineerIdFromPl)
     {
         DO.Engineer? doEngineer = _dal.Engineer.Read(EngineerIdFromPl);
         if (doEngineer == null)
-            throw new BlDoesNotExistException($"Engineer with number = {EngineerIdFromPl} dose not exists");
+            return null;
 
         return new BO.BOEngineer() 
         {
@@ -124,13 +124,13 @@ internal class BOEngineerImplementation : IBOEngineer
 
     public void Update(BO.BOEngineer bOEngineer)
     {
-        if (bOEngineer.EngineerId! > 0)
+        if (bOEngineer.EngineerId! < 0)
             throw new BO.BlIncorrectInput($"An engineer ID number cannot be negative");
 
         if (bOEngineer.EngineerName == null || bOEngineer.EngineerName.Length == 0)
             throw new BO.BlIncorrectInput($"An engineer's name cannot be an empty string");
 
-        if (bOEngineer.SalaryPerHour! > 0)
+        if (bOEngineer.SalaryPerHour! < 0)
             throw new BO.BlIncorrectInput($"An engineer's salary cannot be negative");
         
         if(Read(bOEngineer.EngineerId)==null)

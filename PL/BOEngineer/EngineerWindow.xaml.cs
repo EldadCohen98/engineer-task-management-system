@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +38,6 @@ public partial class EngineerWindow : Window
         if (IdEngineer == 0)
         {
             BO.BOEngineer bOEngineer = new BO.BOEngineer();
-            
             CurrentEngineer = bOEngineer;
             this.Show();
         }
@@ -53,10 +53,34 @@ public partial class EngineerWindow : Window
 
     private void AddNewEngineer(object sender, RoutedEventArgs e)
     {
+        if (s_bl.BOEngineer.Read(CurrentEngineer.EngineerId) == null)
+        {
+            BO.BOEngineer newEngineerToList = new BO.BOEngineer()
+            {
+                EngineerId = CurrentEngineer.EngineerId,
+                EngineerName = CurrentEngineer.EngineerName,
+                EngineerEmail = CurrentEngineer.EngineerEmail,
+                LeverOfEngineer = CurrentEngineer.LeverOfEngineer,
+                SalaryPerHour = CurrentEngineer.SalaryPerHour,
+            };
 
-        GetBindingExpression(TextBox.TextProperty).UpdateSource();
-        //s_bl.BOEngineer.Add((s_bl.BOEngineer.Read(newEngoneer!.EngineerId)));
-        MessageBox.Show("The engineer has been added");
+            s_bl.BOEngineer.Add(newEngineerToList);
+            MessageBox.Show("The engineer has been added");
+        }
+        else
+        {
+            BO.BOEngineer newEngineerToList = new BO.BOEngineer()
+            {
+                EngineerId = CurrentEngineer.EngineerId,
+                EngineerName = CurrentEngineer.EngineerName,
+                EngineerEmail = CurrentEngineer.EngineerEmail,
+                LeverOfEngineer = CurrentEngineer.LeverOfEngineer,
+                SalaryPerHour = CurrentEngineer.SalaryPerHour,
+            };
+
+            s_bl.BOEngineer.Update(newEngineerToList);
+            MessageBox.Show("The engineer has been updeted");
+        }
     }
 
 }

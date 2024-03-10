@@ -62,7 +62,7 @@ public partial class EngineerListWindow : Window
         ComboBox? comboBoxSender = sender as ComboBox;
 
         //comboBoxSender.SelectedItem == BO.EngineerLevels.Beginner
-        if ((BO.EngineerLevels)comboBoxSender.SelectedItem == BO.EngineerLevels.Beginner)
+        if ((BO.EngineerLevels)comboBoxSender!.SelectedItem == BO.EngineerLevels.Beginner)
         {
             List<BO.BOEngineer> engineersList = new(s_bl.BOEngineer.ReadList(item => item.LeverOfEngineer!.Value == BO.EngineerLevels.Beginner));
 

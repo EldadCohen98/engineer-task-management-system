@@ -35,8 +35,9 @@ public partial class MainWindow : Window
 
     private void Clear(object sender, RoutedEventArgs e)
     {
+        s_bl.BOEngineer.Initial();
         MessageBox.Show("Are you sure you want to delete everything?");
-        if (s_bl.BOEngineer.ReadList() == null)
+        if (PL.BOEngineer.EngineerListWindow.EngineerListProperty == null)
         {
             MessageBox.Show("The data has already been deleted");
             return;
