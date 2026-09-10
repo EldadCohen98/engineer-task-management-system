@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.BOEngineer.EngineerListWindow"
+<Window x:Class="PL.BOEngineer.EngineerListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,10 @@
         </Grid.RowDefinitions>
         <StackPanel Margin="0,41,0,0" Grid.RowSpan="2">
             <StackPanel.Background>
-                <ImageBrush ImageSource="/photos/slider-3.jpg"/>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#F8FAFC" Offset="0"/>
+                    <GradientStop Color="#E2E8F0" Offset="1"/>
+                </LinearGradientBrush>
             </StackPanel.Background>
             <ListView Height="460" Width="398"  Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" PreviewMouseDoubleClick="ListView_PreviewMouseDoubleClick">
                 <ListView.View>
